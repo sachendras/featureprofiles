@@ -1,4 +1,4 @@
-# GNMI-: gnmi_subscriptionlist_test
+# GNMI-2: gnmi_subscriptionlist_test
 
 ## Summary
 This is to test for subscription to multiple paths with different Subscription modes in a single request using Subscriptionlist. Goal here is to ensure that the NOS supports "Subscriptionlist" and also supports the desired subscriptionmodes per path.
