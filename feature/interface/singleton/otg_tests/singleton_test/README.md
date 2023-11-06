@@ -5,7 +5,6 @@
 Singleton L3 interface (non-LAG) is supported on DUT.
 
 ## Procedure
-
 For each port speed and breakout port configuration that need to be tested, add
 a new testbed configuration with the desired port types.
 
@@ -15,6 +14,7 @@ a new testbed configuration with the desired port types.
     the octets of IPv4.
   * Ensure: ARP discovers static MAC address specified when port is
         configured with static MAC.
+### RT-5.1.1 - singleton interface verification:
 * Validate that port speed is reported correctly and that port telemetry
     matches expected negotiated speeds for forced, auto-negotiation, and
     auto-negotiation while overriding port speed and duplex.
@@ -30,6 +30,19 @@ a new testbed configuration with the desired port types.
 
 [^1]: The MTU specified above refers to the L3 MTU, which is the payload portion
     of an Ethernet frame.
+### RT-5.1.2 - link flaps:
+* Bring down the physical layer of ATE port-1, and bring it back up.
+    Repeat this a few times (minimum 2)
+  * Verify that the interface goes down by checking the physical state on DUT/ATE.
+  * Verify that the interface is back up by checking the physical state on DUT/ATE.
+  * Ensure that the number of interface state changes are accurately
+            captured in the OC path.
+  * Verify that the traffic flow from ATE port-1 to ATE port-2 is
+            now working after the interface is back up.
+### RT-5.1.3 - Verify accurate reporting of `hardware-port` on all interfaces:
+* The test should start with taking an inventory of all available interfaces on the DUT irrespective of their admin-status or breakout state.
+* The test should check for `/interfaces/interface/state/hardware-port` reporting on all available physical interfaces in the DUT irrespective of their admin-status or breakout state
+* Compare results in both the bullets above and confirm that the DUT is not missing reporting of `state/hardware-port` on any physical interface irrespective of their breakout state. If missed, the test is a failure. 
 
 ## Config Parameter Coverage
 
